@@ -1,0 +1,35 @@
+name: ROS 2 dev test
+on:
+  pull_request:
+  push:
+    branches:
+      - ros2_dev
+jobs:
+  build_humble:
+    runs_on: ubuntu_22.04
+    steps:
+      - uses: ros-tooling/setup-ros@v0.6
+        with:
+          required-ros-distributions: humble
+      - uses: ros-tooling/action-ros-ci@v0.3
+  build_rolling:
+    runs_on: ubuntu_22.04
+    steps:
+      - uses: ros-tooling/setup-ros@v0.6
+        with:
+          required-ros-distributions: rolling
+      - uses: ros-tooling/action-ros-ci@v0.3
+  build_galactic:
+    runs_on: ubuntu_20.04
+    steps:
+      - uses: ros-tooling/setup-ros@v0.6
+        with:
+          required-ros-distributions: galactic
+      - uses: ros-tooling/action-ros-ci@v0.3
+  build_foxy:
+    runs_on: ubuntu_20.04
+    steps:
+      - uses: ros-tooling/setup-ros@v0.6
+        with:
+          required-ros-distributions: foxy
+      - uses: ros-tooling/action-ros-ci@v0.3
