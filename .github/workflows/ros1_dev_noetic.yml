@@ -1,0 +1,16 @@
+name: ROS 1 dev test noetic
+on:
+  pull_request:
+  push:
+    branches:
+      - ros1_dev
+jobs:
+  build_and_test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: ros-tooling/setup-ros@v0.6
+        with:
+          required-ros-distributions: noetic
+      - uses: ros-tooling/action-ros-ci@v0.3
+        with:
+          target-ros1-distro: noetic

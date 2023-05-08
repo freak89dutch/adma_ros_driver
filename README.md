@@ -2,6 +2,14 @@
 
 Further Information can be found at the [GeneSys Technical Support Center](https://genesys-offenburg.de/support-center/). 
 
+## Build status
+
+| ROS1 Distribution | Status |
+|---|---|
+Noetic (Ubuntu 20.04) | ![ROS Noetic](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros1_dev_noetic.yml/badge.svg) |
+Melodic (Ubuntu 18.04) | ![ROS Melodic](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros_dev_melodic.yml/badge.svg) |
+Kinetic (Ubuntu 16.04) | ![ROS Kinetic](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros_dev_kinetic.yml/badge.svg) |
+
 ## Environment information
 
 This setup was implemented and tested with the following conditions:
