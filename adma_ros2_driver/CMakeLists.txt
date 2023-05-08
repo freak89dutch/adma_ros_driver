@@ -14,13 +14,22 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclcpp_components REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(adma_ros_driver_msgs REQUIRED)
+
+SET(PACKAGE_DEBS
+  rclcpp
+  sensor_msgs
+  geometry_msgs
+  std_msgs
+  tf2_ros
+  tf2_geometry_msgs
+  adma_ros_driver_msgs
+)
 
 include_directories(include)
 
@@ -34,19 +43,15 @@ add_library(${PROJECT_NAME}_node SHARED
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node
-  rclcpp
-  rclcpp_components
-  sensor_msgs
-  geometry_msgs
-  std_msgs
-  tf2_ros
-  tf2_geometry_msgs
-  adma_ros_driver_msgs
+  ${PACKAGE_DEBS}
 )
 
-rclcpp_components_register_node(${PROJECT_NAME}_node
-  PLUGIN "genesys::ADMADriver"
-  EXECUTABLE adma_driver
+
+
+add_executable(adma_driver src/adma_driver.cpp)
+target_link_libraries(adma_driver ${PROJECT_NAME}_node)
+ament_target_dependencies(adma_driver
+  ${PACKAGE_DEBS}
 )
 
 install(TARGETS ${PROJECT_NAME}_node
@@ -54,6 +59,11 @@ install(TARGETS ${PROJECT_NAME}_node
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
   INCLUDES DESTINATION include
+)
+
+install(TARGETS
+  adma_driver
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 install(DIRECTORY include/

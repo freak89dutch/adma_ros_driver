@@ -5,8 +5,6 @@
 #include <iostream>
 #include <string>
 
-#include <rclcpp_components/register_node_macro.hpp>
-
 /**
  * @brief This helper class can replay post-processed ADMA data (GSDA file) and publish the data to ROS
  */
@@ -819,4 +817,3 @@ void GSDAServer::fillDataScaledMsg(adma_ros_driver_msgs::msg::AdmaDataScaled& da
 
 }  // end namespace tools
 }  // end namespace genesys
-RCLCPP_COMPONENTS_REGISTER_NODE(genesys::tools::GSDAServer)

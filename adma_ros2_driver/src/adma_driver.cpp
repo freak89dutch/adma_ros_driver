@@ -5,8 +5,6 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
-#include <rclcpp_components/register_node_macro.hpp>
-
 #include "adma_ros2_driver/parser/parser_utils.hpp"
 
 namespace genesys
@@ -257,4 +255,12 @@ void ADMADriver::updateLoop()
 }
 }  // namespace genesys
 
-RCLCPP_COMPONENTS_REGISTER_NODE(genesys::ADMADriver)
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  rclcpp::NodeOptions options;
+  auto node = std::make_shared<genesys::ADMADriver>(options);
+  rclcpp::spin(node);
+  rclcpp::shutdown();
+  return 0;
+}

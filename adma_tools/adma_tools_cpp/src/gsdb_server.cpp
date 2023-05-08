@@ -4,7 +4,6 @@
 #include <sys/socket.h>
 #include <iostream>
 
-#include <rclcpp_components/register_node_macro.hpp>
 /**
  * @brief This helper class can replay raw ADMA data (GSDB file) and send it via UDP
  * to re-process the data with ROS
@@ -78,4 +77,3 @@ void GSDBServer::updateLoop()
 }
 }  // end namespace tools
 }  // end namespace genesys
-RCLCPP_COMPONENTS_REGISTER_NODE(genesys::tools::GSDBServer)

@@ -14,11 +14,18 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclcpp_components REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(adma_ros_driver_msgs REQUIRED)
 find_package(adma_ros2_driver REQUIRED)
+
+SET(PACKAGE_DEBS
+  rclcpp
+  sensor_msgs
+  std_msgs
+  adma_ros_driver_msgs
+  adma_ros2_driver
+)
 
 include_directories(include)
 
@@ -29,27 +36,25 @@ add_library(${PROJECT_NAME}_node SHARED
 )
 
 ament_target_dependencies(${PROJECT_NAME}_node
-  rclcpp
-  rclcpp_components
-  sensor_msgs
-  std_msgs
-  adma_ros_driver_msgs
-  adma_ros2_driver
+  ${PACKAGE_DEBS}
 )
 
-rclcpp_components_register_node(${PROJECT_NAME}_node
-  PLUGIN "genesys::tools::Bag2GSDBConverter"
-  EXECUTABLE bag2gsdb_converter
+add_executable(bag2gsdb_converter src/bag2gsdb_converter_main.cpp)
+target_link_libraries(bag2gsdb_converter ${PROJECT_NAME}_node)
+ament_target_dependencies(bag2gsdb_converter
+  ${PACKAGE_DEBS}
 )
 
-rclcpp_components_register_node(${PROJECT_NAME}_node
-  PLUGIN "genesys::tools::GSDBServer"
-  EXECUTABLE gsdb_server
+add_executable(gsdb_server src/gsdb_server_main.cpp)
+target_link_libraries(gsdb_server ${PROJECT_NAME}_node)
+ament_target_dependencies(gsdb_server
+  ${PACKAGE_DEBS}
 )
 
-rclcpp_components_register_node(${PROJECT_NAME}_node
-  PLUGIN "genesys::tools::GSDAServer"
-  EXECUTABLE gsda_server
+add_executable(gsda_server src/gsda_server_main.cpp)
+target_link_libraries(gsda_server ${PROJECT_NAME}_node)
+ament_target_dependencies(gsda_server
+  ${PACKAGE_DEBS}
 )
 
 install(TARGETS ${PROJECT_NAME}_node
@@ -57,6 +62,19 @@ install(TARGETS ${PROJECT_NAME}_node
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
   INCLUDES DESTINATION include
+)
+
+install(TARGETS
+  bag2gsdb_converter
+  DESTINATION lib/${PROJECT_NAME}
+)
+install(TARGETS
+  gsdb_server
+  DESTINATION lib/${PROJECT_NAME}
+)
+install(TARGETS
+  gsda_server
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 install(DIRECTORY include/

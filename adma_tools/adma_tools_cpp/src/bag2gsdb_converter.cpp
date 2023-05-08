@@ -1,5 +1,4 @@
 #include "adma_tools_cpp/bag2gsdb_converter.hpp"
-#include <rclcpp_components/register_node_macro.hpp>
 
 namespace genesys
 {
@@ -42,4 +41,3 @@ void Bag2GSDBConverter::rawDataCallback(adma_ros_driver_msgs::msg::AdmaDataRaw n
 }
 }// end namespace tools
 }// end namespace genesys
-RCLCPP_COMPONENTS_REGISTER_NODE(genesys::tools::Bag2GSDBConverter)
