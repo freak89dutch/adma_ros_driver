@@ -5,9 +5,9 @@ Further Information can be found at the [GeneSys Technical Support Center](https
 
 | ROS2 Distribution | Status |
 |---|---|
-Foxy (Ubuntu 20.04) | ![ROS2 Foxy](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros_dev_foxy.yml/badge.svg) |
-Humble (Ubuntu 22.04) | ![ROS2 Humble](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros_dev_humble.yml/badge.svg) |
-Rolling (Ubuntu 22.04) | ![ROS2 Rolling](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros_dev_rolling.yml/badge.svg) |
+Foxy (Ubuntu 20.04) | ![ROS2 Foxy](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros2_dev_foxy.yml/badge.svg) |
+Humble (Ubuntu 22.04) | ![ROS2 Humble](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros2_dev_humble.yml/badge.svg) |
+Rolling (Ubuntu 22.04) | ![ROS2 Rolling](https://github.com/freak89dutch/adma_ros_driver/actions/workflows/ros2_dev_rolling.yml/badge.svg) |
 
 ## Environment information
 This setup was implemented and tested with the following conditions:
