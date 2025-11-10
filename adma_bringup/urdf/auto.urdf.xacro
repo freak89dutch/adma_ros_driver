@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="auto" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="deg_to_rad" value="0.017453292519943295"/> <!-- π / 180 -->
+  <!-- base frame (adma origin) -->
+  <link name="base_link"/>
+
+  <!-- load all helper files -->
+  <xacro:include filename="sensors.urdf.xacro" />
+
+  <!-- ADMA (leveled) -->
+  <xacro:poi name="adma_link" xyz="0.0 0.0 0.0" rpy="${-0.174542 * deg_to_rad} ${-1.837016 * deg_to_rad} 0"/>
+
+  <!-- Axle center front (POI_1) -->
+  <xacro:poi name="poi_1_link" xyz="2.76146698 -0.03575897 -0.34528519" rpy="0 0 0"/>
+
+  <!-- Lidar on the rooftop  (POI_2) -->
+  <xacro:poi name="os_sensor" xyz="1.15699295 -0.14879990 0.97099998" rpy="${0.81 * deg_to_rad} ${-2.03 * deg_to_rad} ${180.0 * deg_to_rad}"/>
+  <xacro:poi name="os_lidar" xyz="0.0 0.0 0.03618" rpy="0.0 0.0 ${-180.0 * deg_to_rad}" parent='os_sensor'/>
+  <xacro:poi name="os_imu" xyz="0.006253 -0.011775 0.007645" parent='os_sensor'/>
+
+  <!-- GNSS-Antenne on the rooftop  (POI_3) -->
+  <xacro:poi name="gnss_ant_link" xyz="0.01015949 0.00337410 0.99926743" rpy="0 0 0"/>
+  
+</robot>

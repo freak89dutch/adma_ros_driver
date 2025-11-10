@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+  Template to create a POI
+  name: name of the link
+  xyz/rpy: transformation of the POI (default 0)
+  parent: name of the frame/link the transformation is related to (default base_link)
+  -->
+  <xacro:macro name="poi" params="name xyz:='0 0 0' rpy:='0 0 0' parent:='base_link'">
+    <link name="${name}"/>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+  </xacro:macro>
+
+</robot>
