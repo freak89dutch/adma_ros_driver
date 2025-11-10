@@ -53,7 +53,10 @@ public:
     int ret = select(rcv_sock_fd_ + 1, &s, NULL, NULL, &timeout);
     if (ret == 0) {
       // reached timeout
-      RCLCPP_INFO(rclcpp::get_logger("UDP-Socket"), "Waiting for ADMA data...");
+      RCLCPP_INFO(
+        rclcpp::get_logger(
+          "UDP-Socket"), "Waiting for ADMA data at port %s ...",
+        std::to_string(ntohs(rcv_socket_address_.sin_port)).c_str());
       return;
     } else if (ret == -1) {
       // error

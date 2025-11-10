@@ -52,10 +52,6 @@ install(TARGETS ${PROJECT_NAME}_node
 install(DIRECTORY include/
   DESTINATION include)
 
-# install additional files of folders
-install(DIRECTORY launch config
-  DESTINATION share/${PROJECT_NAME})
-
 if(BUILD_TESTING)
   find_package(ament_cmake_cppcheck REQUIRED)
   find_package(ament_cmake_cpplint REQUIRED)

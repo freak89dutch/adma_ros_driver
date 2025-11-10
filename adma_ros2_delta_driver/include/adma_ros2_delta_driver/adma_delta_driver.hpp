@@ -27,7 +27,6 @@
 
 #include <adma_ros_driver_msgs/msg/delta1170_raw.hpp>
 #include <adma_ros_driver_msgs/msg/delta1170_scaled.hpp>
-#include <adma_core_lib/network/udp_socket.hpp>
 #include <adma_core_lib/parser/mapping.hpp>
 
 #pragma once
@@ -41,16 +40,13 @@ public:
   virtual ~ADMADeltaDriver();
 
 private:
-  void updateLoop();
+  void rawDataCallback(adma_ros_driver_msgs::msg::Delta1170Raw::SharedPtr newMsg);
   double convertCoordinates(double rawValue);
 
-  std::string protocol_version_;
-  size_t len_ = 0;
-  genesys::core::UDPSocket * socket_;
-
+  uint16_t protocolVersion_;
   genesys::parser::Mapping * mapping_;
-
-  rclcpp::Publisher<adma_ros_driver_msgs::msg::Delta1170Raw>::SharedPtr pub_delta_raw_;
-  rclcpp::Publisher<adma_ros_driver_msgs::msg::Delta1170Scaled>::SharedPtr pub_delta_scaled_;
+  // std::array<char, 856> recv_buf_temp_;
+  rclcpp::Subscription<adma_ros_driver_msgs::msg::Delta1170Raw>::SharedPtr subDataRaw_;
+  rclcpp::Publisher<adma_ros_driver_msgs::msg::Delta1170Scaled>::SharedPtr pubDataScaled_;
 };
 }  // namespace genesys

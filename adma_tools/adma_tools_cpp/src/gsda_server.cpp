@@ -84,7 +84,7 @@ GSDAServer::GSDAServer(const rclcpp::NodeOptions & options)
   }
 
   // TODO(rschilli): make version injection more dynamic
-  parser_ = new ADMA2ROSParser(3360);
+  parser_ = new ADMA2ROSParser(3360, "");
 
   updateLoop();
 }

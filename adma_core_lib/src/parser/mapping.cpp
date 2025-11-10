@@ -32,13 +32,11 @@ namespace genesys
 namespace parser
 {
 
-Mapping::Mapping(uint16_t protocolVersion, std::string package_name)
+Mapping::Mapping(uint16_t protocolVersion, std::string jsonFilePath)
 {
   version_ = protocolVersion;
-  std::string configPath = ament_index_cpp::get_package_share_directory(package_name);
-  configPath += "/config/protocols/";
   std::string admanetXMLFile, mappingGlossarFile;
-  mappingGlossarFile = configPath + "channel_mapping.json";
+  mappingGlossarFile = jsonFilePath + "/channel_mapping.json";
   RCLCPP_INFO(
     rclcpp::get_logger("genesys::parser::Mapping"),
     "Loading Glossar: %s", mappingGlossarFile.c_str());
@@ -48,7 +46,7 @@ Mapping::Mapping(uint16_t protocolVersion, std::string package_name)
   for (const auto & entry : xmlFiles) {
     if (entry["version"] == version_) {
       std::string xmlFileName = entry["filename"];
-      admanetXMLFile = configPath + xmlFileName;
+      admanetXMLFile = jsonFilePath + "/" + xmlFileName;
     }
   }
   RCLCPP_INFO(

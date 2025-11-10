@@ -34,7 +34,6 @@
 #include <adma_ros_driver_msgs/msg/adma_data_raw.hpp>
 #include <adma_ros_driver_msgs/msg/adma_data_scaled.hpp>
 #include <adma_ros_driver_msgs/msg/adma_status.hpp>
-#include <adma_core_lib/network/udp_socket.hpp>
 
 #include "adma_ros2_driver/parser/adma2ros_parser.hpp"
 
@@ -49,14 +48,9 @@ public:
   virtual ~ADMADriver();
 
 private:
-  void updateLoop();
-  void parseData(std::array<char, 856> recv_buf);
   void rawDataCallback(adma_ros_driver_msgs::msg::AdmaDataRaw::SharedPtr rawDataMsg);
 
-  genesys::core::UDPSocket * socket_;
-  size_t len_ = 0;
-  /** \brief Check the timings */
-  bool performance_check_ = true;
+  bool performanceCheck_ = false;
   bool setupDone = false;
 
   // subscriber
@@ -64,7 +58,6 @@ private:
 
   // publisher
   rclcpp::Publisher<adma_ros_driver_msgs::msg::AdmaData>::SharedPtr pub_adma_data_;
-  rclcpp::Publisher<adma_ros_driver_msgs::msg::AdmaDataRaw>::SharedPtr pub_adma_data_raw_;
   rclcpp::Publisher<adma_ros_driver_msgs::msg::AdmaDataScaled>::SharedPtr pub_adma_data_scaled_;
   rclcpp::Publisher<adma_ros_driver_msgs::msg::AdmaStatus>::SharedPtr pub_adma_status_;
   rclcpp::Publisher<sensor_msgs::msg::NavSatFix>::SharedPtr pub_navsat_fix_;
@@ -83,6 +76,7 @@ private:
   std::string odometry_pose_frame_;
   std::string odometry_child_frame_;
 
+  std::string jsonMappingFilePath_;
   ADMA2ROSParser * parser_;
 
   // yaw offset angle if the odometry should be rotated by a fixed angle
@@ -96,8 +90,9 @@ private:
   std::array<adma_ros_driver_msgs::msg::POI, 8> pois;
 
   // parameters for mode and time source
-  uint8_t mode_;
   uint8_t time_mode_;
   bool publish_clock_;
+  builtin_interfaces::msg::Time oldTimestampForMsgs_;
+  rclcpp::QoS qosProfile_;
 };
 }  // namespace genesys

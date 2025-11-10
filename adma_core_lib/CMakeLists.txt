@@ -15,6 +15,7 @@ endif()
 # find ROS dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
 find_package(tinyxml2_vendor QUIET)
 find_package(TinyXML2 REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -28,14 +29,22 @@ add_library(${PROJECT_NAME}_node SHARED
   src/parser/parser_utils.cpp
   src/parser/xml_parser.cpp
   src/parser/mapping.cpp
+  src/adma_server.cpp
 )
 
 # link ROS deps to this package
 ament_target_dependencies(${PROJECT_NAME}_node
   rclcpp
+  rclcpp_components
   TinyXML2
   geometry_msgs
   adma_ros_driver_msgs
+)
+
+# setup executable
+rclcpp_components_register_node(${PROJECT_NAME}_node
+  PLUGIN "genesys::ADMAServer"
+  EXECUTABLE adma_server
 )
 
 install(TARGETS ${PROJECT_NAME}_node

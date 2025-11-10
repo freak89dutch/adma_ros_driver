@@ -1,0 +1,7 @@
+/**:
+  adma_server:
+    ros__parameters:
+      adma_ip: '192.168.88.255'
+      admanet_port: 11021
+      addondelta_port: 1025
+      time_mode: 0

@@ -73,3 +73,5 @@ T_source extractValue(const std::array<char, 856> & buffer, size_t offset, size_
 
 void extractAdmanetHeader(
   adma_ros_driver_msgs::msg::AdmanetHeader & headerMsg, std::array<char, 856> & buffer);
+
+void extractINSTime(std::array<char, 856> & buffer, uint32_t & instimeMsec, uint16_t & insTimeWeek);

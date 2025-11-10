@@ -83,3 +83,10 @@ void extractAdmanetHeader(
   headerMsg.slice_size = admaHeaderStruct.slicesize;
   headerMsg.slice_data = admaHeaderStruct.slicedata;
 }
+
+void extractINSTime(std::array<char, 856> & buffer, uint32_t & instimeMsec, uint16_t & insTimeWeek)
+{
+  // its a bit hardcoded but basicly it will never change
+  instimeMsec = extractValue<uint32_t>(buffer, 584, 4);
+  insTimeWeek = extractValue<uint16_t>(buffer, 588, 2);
+}

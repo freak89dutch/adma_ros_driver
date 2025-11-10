@@ -1,0 +1,4 @@
+/**:
+  adma_ros2_delta_driver:
+    ros__parameters:
+      protocol_version: 1170

@@ -42,7 +42,7 @@
 class ADMA2ROSParser
 {
 public:
-  explicit ADMA2ROSParser(u_int16_t version);
+  explicit ADMA2ROSParser(u_int16_t version, std::string jsonFilePath);
   ~ADMA2ROSParser() {}
   // void findMappingFiles(std::string & protocolFileName, std::string & glossarFileName);
   void mapAdmaMessageToROS(

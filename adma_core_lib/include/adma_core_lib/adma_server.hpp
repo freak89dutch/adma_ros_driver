@@ -21,54 +21,32 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include <netdb.h>
-
-#include <fstream>
-#include <memory>
-#include <string>
-
 #include <rclcpp/rclcpp.hpp>
+
+#include <adma_ros_driver_msgs/msg/adma_data_raw.hpp>
+#include <adma_ros_driver_msgs/msg/delta1170_raw.hpp>
+#include "adma_core_lib/network/udp_socket.hpp"
 
 #pragma once
 
 namespace genesys
 {
-namespace tools
-{
-class GSDBServer : public rclcpp::Node
+class ADMAServer : public rclcpp::Node
 {
 public:
-  explicit GSDBServer(const rclcpp::NodeOptions & options);
-  virtual ~GSDBServer();
+  explicit ADMAServer(const rclcpp::NodeOptions & options);
+  virtual ~ADMAServer();
 
 private:
   void updateLoop();
+  genesys::core::UDPSocket * admaNetSocket_;
+  size_t admaNetLen_ = 0;
+  genesys::core::UDPSocket * addonDeltaSocket_;
+  size_t addonDeltaLen_ = 0;
 
-  // ADMANet specific
-  int admanet_send_socket_fd_;
-  struct sockaddr_in admanet_socket_address_;
-  socklen_t admanet_address_length_;
-  int admanet_port_;
-  std::string admanet_protocol_version_;
-  uint64_t admanet_msgCounter_;
-  uint64_t admanet_protocolLength_;
-  char admanet_start_pattern[4] = {0x47, 0x42, 0x49, 0x4E};  // GBIN
+  rclcpp::Publisher<adma_ros_driver_msgs::msg::AdmaDataRaw>::SharedPtr pubAdmaNetRaw_;
+  rclcpp::Publisher<adma_ros_driver_msgs::msg::Delta1170Raw>::SharedPtr pubAddonDeltaRaw_;
 
-  // AddOnDelta specific
-  int addondelta_send_socket_fd_;
-  struct sockaddr_in addondelta_socket_address_;
-  socklen_t addondelta_address_length_;
-  int addondelta_port_;
-  uint64_t addondelta_msgCounter_;
-  uint64_t addondelta_protocolLength_;
-  unsigned char addondelta_start_pattern[4] = {0xC0, 0xB5, 0x3E, 0x70};
-
-  bool contains_delta_;
-  uint16_t frequency_;
-  std::string gsdbFilePath_;
-  std::fstream gsdbFile_;
-
-  std::ofstream admanetGsdbFile_;
+  uint8_t timeMode_;
 };
-}  // end namespace tools
-}  // end namespace genesys
+}  // namespace genesys

@@ -29,13 +29,13 @@
 
 #include "adma_core_lib/parser/parser_utils.hpp"
 
-ADMA2ROSParser::ADMA2ROSParser(u_int16_t version)
+ADMA2ROSParser::ADMA2ROSParser(u_int16_t version, std::string jsonFilePath)
 : protocolVersion_(version)
 {
   if (protocolVersion_ == 3200) {
     parserV32_ = new ADMA2ROSParserV32();
   } else {
-    mapping_ = new genesys::parser::Mapping(version, "adma_ros2_driver");
+    mapping_ = new genesys::parser::Mapping(version, jsonFilePath);
   }
 }
 
